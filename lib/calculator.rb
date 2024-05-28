@@ -33,4 +33,6 @@ module Calculator
     end
   end
 
+  # puts Calculator::StringCalculator.add("1") 
+
 end
