@@ -18,26 +18,33 @@ RSpec.describe Calculator do
     end
 
     it 'returns the sum of two numbers' do
-      expect(StringCalculator.add("1,2")).to eq(3)
-      expect(StringCalculator.add("5,7")).to eq(12)
+      expect(Calculator::StringCalculator.add("1,2")).to eq(3)
+      expect(Calculator::StringCalculator.add("5,7")).to eq(12)
     end
 
     it 'returns the sum of multiple numbers' do
-      expect(StringCalculator.add("1,2,3")).to eq(6)
-      expect(StringCalculator.add("5,10,15")).to eq(30)
+      expect(Calculator::StringCalculator.add("1,2,3")).to eq(6)
+      expect(Calculator::StringCalculator.add("5,10,15")).to eq(30)
     end
 
     it 'handles newlines between numbers' do
-      expect(StringCalculator.add("1\n2,3")).to eq(6)
-      expect(StringCalculator.add("5\n10\n15")).to eq(30)
+      expect(Calculator::StringCalculator.add("1\n2,3")).to eq(6)
+      expect(Calculator::StringCalculator.add("5\n10\n15")).to eq(30)
     end
 
     it 'supports different delimiters' do
-      expect(StringCalculator.add("//;\n1;2")).to eq(3)
-      expect(StringCalculator.add("//|\n1|2|3")).to eq(6)
-      expect(StringCalculator.add("//sep\n2sep5")).to eq(7)
+      expect(Calculator::StringCalculator.add("//;\n1;2")).to eq(3)
+      expect(Calculator::StringCalculator.add("//|\n1|2|3")).to eq(6)
+      expect(Calculator::StringCalculator.add("//sep\n2sep5")).to eq(7)
     end
 
+    it 'raises an exception for negative numbers' do
+      expect { Calculator::StringCalculator.add("1,-2,3") }.to raise_error("negative numbers not allowed: -2")
+    end
+
+    it 'raises an exception listing all negative numbers' do
+      expect { Calculator::StringCalculator.add("-1,-2,3") }.to raise_error("negative numbers not allowed: -1, -2")
+    end
   end
 
 end
